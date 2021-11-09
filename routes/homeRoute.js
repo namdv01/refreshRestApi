@@ -13,6 +13,17 @@ route.get('/',async (req,res,next) => {
     }
 });
 
+route.get('/:id',async (req,res,next) => {
+    try {
+        const user = await model.findOne({"_id": req.params.id});
+        res.json(user);
+    } catch (error) {
+        res.status(401).json({
+            message: error.message
+        });
+    }
+});
+
 route.post('/',async (req,res,next) => {
     try {
         const user = new model(req.body).save();
